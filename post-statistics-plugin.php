@@ -141,15 +141,29 @@ class Plugin extends Base
 
     function __construct( $readableName )
     {
+        // Attributes
         $nameGenerator = new PluginNameProcessor( $readableName );
         $this->setReadableName( $nameGenerator->getReadableName() );
         $this->setGroupName( $nameGenerator->getGroupName() );
         $this->setSettingsPageUrl( $nameGenerator->getSettingsPageUrl() );
         $this->setSettingsPageTitle( $nameGenerator->getSettingsPageTitle() );
 
+        // Setup
         add_action( 'admin_menu', [$this, 'configureSettingsPage'] );
         add_action( 'admin_init', [$this, 'configureSettings'] );
+
+        // Action
+        $this->addPluginAction();
     }
+
+    /**
+     * Plugin Main Action
+     * 
+     * @overriden
+     * @param None
+     * @return None
+     */
+    function addPluginAction(){}
 
 
     /**
@@ -297,7 +311,7 @@ class PostStatisticsPlugin extends Plugin
         // Country Visits flag
         $countryVisits = new CheckboxSettingField(
             $this,                                      // Plugin reference 
-            'psp_country_visits_flag',                  // Field Name
+            'psp_country_visit_flag',                   // Field Name
             'Visits per Country',                       // Label
             '0',                                        // Default
             $sectionName,                               // Section name to show
@@ -320,23 +334,32 @@ class PostStatisticsPlugin extends Plugin
      * Determines where to add statistics
      * 
      * @param content 
-     * - post content to 
+     * - post content to edit with inclusion of statistics
+     * @return string
      */
     function applyAction( $content )
     {
-        error_log( 'checking');
+    
         if( 
-            (is_main_query() && is_single()) &&
-            (get_option('wcp_word_count','1'))
+            (is_main_query() && is_single())
         ){
-            $include = '<b>Test</b>';
+            
+            $include = '';
+            if( get_option('psp_word_count_flag') === '1' ){
+                $include = '<b>Test Word Count</b><br>';
+            }
+
+            if( get_option('psp_country_visit_flag') === '1' ){
+                $include .= '<b>Test Country Visit</b>';
+            }
 
             // Beginning
-            if( get_option('wcp_location', '0') ){
+            if( get_option('psp_location', '0') ){
                 return $include.'<hr>'.$content;
             }else{
                 return $content.'<hr>'.$include;
             }
+
         }
         return $content;
     }
