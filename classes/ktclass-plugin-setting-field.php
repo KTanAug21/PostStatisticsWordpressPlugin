@@ -1,8 +1,10 @@
 <?php
 
+/**
+ * Base class for settings field
+ */
 class PluginSettingField extends Base
 {
-
     /**
      * Initialize a PluginSettingField
      * 
@@ -21,12 +23,6 @@ class PluginSettingField extends Base
      */
     function __construct( $plugin, $fieldName, $labelName, $default, $sectionName, $sanitizeCallback, $errorMessage, $args = [] )
     {
-        error_log( 
-            $fieldName.' '.
-            $labelName.' '.
-            $default.' '.
-            $sectionName.' '
-        );
         $this->args               = $args;
         $this->default            = $default;
         $this->fieldName          = $fieldName;
@@ -70,7 +66,6 @@ class PluginSettingField extends Base
      */
     function addSettingsToPlugin( $plugin, $sectionName )
     {
-        
         $fieldName = $this->attr( 'fieldName' );
         
         // Add settings field to plugin
@@ -96,21 +91,20 @@ class PluginSettingField extends Base
                 'default' => $this->attr( 'default' )                     // Default value
             ]
         );
-
     }
 
     /**
      * Sets the html for the field
      * 
      * @overriden
+     * @param None
+     * @return None
      */
     function setHtml(){}
-
 }
 
 class SelectSettingField extends PluginSettingField
 {
-   
     /**
      * Sets the html content for a select field
      * 
@@ -142,12 +136,10 @@ class SelectSettingField extends PluginSettingField
         }
         return $input;
     }
-
 }
 
 class TextSettingField extends PluginSettingField
 {
-
     /**
      * Sets the html content for a input-text field
      * 
@@ -161,12 +153,10 @@ class TextSettingField extends PluginSettingField
     ?>
         <input type="text" name="<? echo $fieldName; ?>" value="<? echo $dbValue; ?>" />
     <?}
-
 }
 
 class CheckboxSettingField extends PluginSettingField
 {
-
     /**
      * Sets the html content for a input-checkbox field
      * 
@@ -194,5 +184,4 @@ class CheckboxSettingField extends PluginSettingField
         }
         return $input;
     }
-
 }

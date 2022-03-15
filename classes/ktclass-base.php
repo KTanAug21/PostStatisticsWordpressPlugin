@@ -34,7 +34,6 @@ class Base
      * @override
      * 
      * @param None
-     * 
      * @return array
      */
     function getPublicAttributeList()
