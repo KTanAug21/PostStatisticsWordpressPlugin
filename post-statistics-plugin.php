@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Post Statistics Plugin
- * Author: Kathryn Anne Tan
+ * Author: Kathryn Anne Suba Tan
  * Author URI: https://github.com/KTanAug21
  * Version: 1.0
  * Description: Provides statistics of a post
