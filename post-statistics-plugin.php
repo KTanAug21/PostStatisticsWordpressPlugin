@@ -4,7 +4,7 @@
  * Author: Kathryn Anne Tan
  * Author URI: https://github.com/KTanAug21
  * Version: 1.0
- * Description: Provides summary of word count in a content
+ * Description: Provides statistics of a post
  */
 require_once( 'classes/ktclass-base.php' );
 require_once( 'classes/ktclass-plugin-setting-field.php' );
@@ -365,7 +365,7 @@ class PostStatisticsPlugin extends Plugin
     }
 }
 
-$wordCountPlugin = new PostStatisticsPlugin( 'Post Statistics' );
+$postStatisticsPlugin = new PostStatisticsPlugin( 'Post Statistics' );
 
 
 
